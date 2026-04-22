@@ -1,0 +1,22 @@
+.card {
+    border:1px solid gray;
+    border-radius: 10px;
+    flex:1 0 350px;
+    padding: 2vw;
+    display:flex;
+    flex-direction: column;
+    
+}
+.card .kep {
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+}
+.card img{
+    width: 100%;
+}
+article{
+    display:flex;
+    flex-wrap: wrap;
+    gap:2vw
+}
