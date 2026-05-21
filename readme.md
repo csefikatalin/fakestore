@@ -140,8 +140,11 @@ Beállítjuk, hoyg ne a régi sablont használja a jsdoc, henm az újat.
 
 A dokumentáció újragenerálása
 
-
+```bash
 npm run doc
+```
+
+**A dokumentáció** linkje: <ä href="https://csefikatalin.github.io/fakestore/out/">Fejlesztői dokumetnáció</a>
 
 ```
 
