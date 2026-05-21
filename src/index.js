@@ -21,12 +21,7 @@ const PRODUCTSELEMENT = document.querySelector("#products");
 const FORMELEMENT = document.querySelector("#form");
 
 // TODO: A switch blokk befejezése a navigációs logika kezeléséhez.
-switch (key) {
-    case value:
-        break;
-    default:
-        break;
-}
+
 
 // Adatok lekérése és megjelenítése
 service.getData(VEGPONT, dataViewer);

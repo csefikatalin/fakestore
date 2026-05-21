@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Home - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ProductForm.html">ProductForm</a></li><li><a href="ProductView.html">ProductView</a></li><li><a href="ProductsView.html">ProductsView</a></li><li><a href="Service.html">Service</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li></li><li></li><li></li></ul><h3>Global</h3><ul><li><a href="global.html#FORMELEMENT">FORMELEMENT</a></li><li><a href="global.html#PRODUCTSELEMENT">PRODUCTSELEMENT</a></li><li><a href="global.html#SZULOELEM">SZULOELEM</a></li><li><a href="global.html#VEGPONT">VEGPONT</a></li><li><a href="global.html#dataViewer">dataViewer</a></li><li><a href="global.html#getData">getData</a></li><li><a href="global.html#megjelenit">megjelenit</a></li><li><a href="global.html#service">service</a></li><li><a href="global.html#view">view</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+    
+
+
+    <section class="package">
+        <h3> </h3>		
+    </section>
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    <section class="readme usertext">
+        <article><h1>FakeStore webáruház - dokumentáció készítésének automatizálása</h1>
+<p>A webáruház nyilvános api végponthoz csatlakozik.
+A projekt célja, hogy egy megismerkedjünk a RestFull alkalmazás készítésének alapjaival.</p>
+<h2>A dokumentáció JSDoc segítségével készül.</h2>
+<h3>helyezd el a kódban a szükséges annotációkat</h3>
+<p>pl.</p>
+<pre class="prettyprint source lang-javascript"><code>import ProductView from &quot;./ProductView.js&quot;;
+
+/**
+ * @class ProductsView
+ * @classdesc Több termék (lista) együttes megjelenítéséért felelős osztály.
+ */
+export default class ProductsView {
+    /** * @private 
+     * @type {Array&lt;Object>} A megjelenítendő termékek listája.
+     */
+    #list = [];
+
+    /**
+     * Létrehoz egy új ProductsView példányt és elindítja a renderelést.
+     * * @param {Array&lt;Object>} [list=[]] - A megjelenítendő termékek tömbje.
+     * @param {HTMLElement} parent - A szülő DOM elem, ahova a lista kerülni fog.
+     */
+    constructor(list = [], parent) {
+        this.#list = list;
+        this.parent = parent;
+        this.megjelenit();
+    }
+
+    /**
+     * Végigiterál a termékek listáján, és minden egyes elemére létrehoz egy új ProductView példányt.
+     */
+    megjelenit() {
+        this.#list.forEach((element) => {
+            new ProductView(element, this.parent);
+        });
+    }
+}
+
+</code></pre>
+<h3>Instaláld az npm csomaggal a JsDoc documentumgeneráló rendszert.</h3>
+<pre class="prettyprint source lang-bash"><code>npm install --save-dev jsdoc
+</code></pre>
+<h3>A dokumentáció generálása</h3>
+<ol>
+<li>A forrásfájlokat helyezd el az src mappában.</li>
+<li>Az index.html maradjon a projekt gyökérkönyvtárában.</li>
+<li>Módoítsd a css és js hivatkozásokat!</li>
+<li>A readme fájl és az src mappa alpján a dokumentáció elkészítése</li>
+</ol>
+<pre class="prettyprint source lang-bash"><code>npx jsdoc -r src README.md
+</code></pre>
+<h2>Jobb megoldás</h2>
+<ul>
+<li>jsdoc.json fájl létrehozása</li>
+</ul>
+<pre class="prettyprint source"><code>{
+    &quot;source&quot;: {
+        &quot;include&quot;: [&quot;src&quot;],
+        &quot;includePattern&quot;: &quot;.+\\.js(doc|x)?$&quot;,
+        &quot;excludePattern&quot;: &quot;(^|\\/|\\\\)_&quot;
+    },
+    &quot;opts&quot;: {
+        &quot;readme&quot;: &quot;README.md&quot;,
+        &quot;destination&quot;: &quot;./out/&quot;,
+        &quot;recurse&quot;: true
+    },
+    &quot;plugins&quot;: [
+        &quot;plugins/markdown&quot;
+    ]
+}
+</code></pre>
+<p><strong>Mit csinál ez a beállítás?</strong></p>
+<p><strong>&quot;include&quot;</strong>: [&quot;src&quot;]: Csak az src mappában keresi a kódokat.
+<strong>&quot;readme&quot;</strong>: &quot;README.md&quot;: Megmondja, hogy a főoldal a te README fájlod legyen.
+<strong>&quot;destination&quot;</strong>: &quot;./out/&quot;: Az out mappába generálja a HTML fájlokat.
+<strong>&quot;recurse&quot;</strong>: true: Automatikusan bemegy az almappákba is.
+<strong>&quot;plugins/markdown&quot;</strong>: Engedélyezi, hogy a JSDoc kommentjeidben is használhass Markdown formázást (pl. félkövér szöveg, listák).</p>
+<ul>
+<li>JSDoc futtatása a kofigurációs fájllal:</li>
+</ul>
+<pre class="prettyprint source lang-bash"><code>npx jsdoc -c jsdoc.json
+</code></pre>
+<h3>A dokumentáció elérése</h3>
+<p>A dokumentáció az <strong>OUT</strong> mappában lesz elérhető</p>
+<p>Sajnos a JSDOC sablonja nem mindig működik tökéletesen. érdemes lecserélni egy újabb sablonra.</p>
+<p>Először telepítened kell a sablont a projektedbe függőségként.</p>
+<pre class="prettyprint source lang-Bash"><code>npm install --save-dev docdash
+</code></pre>
+<p>A jsdoc.json frissítése</p>
+<p>Beállítjuk, hoyg ne a régi sablont használja a jsdoc, henm az újat.
+<strong>jsdoc.json</strong> fájl módosítása:</p>
+<pre class="prettyprint source"><code>{
+    &quot;source&quot;: {
+        &quot;include&quot;: [&quot;src&quot;],
+        &quot;includePattern&quot;: &quot;.+\\.js(doc|x)?$&quot;,
+        &quot;excludePattern&quot;: &quot;(^|\\/|\\\\)_&quot;
+    },
+    &quot;opts&quot;: {
+        &quot;readme&quot;: &quot;README.md&quot;,
+        &quot;destination&quot;: &quot;./out/&quot;,
+        &quot;recurse&quot;: true,
+        &quot;template&quot;: &quot;node_modules/docdash&quot;
+    },
+    &quot;plugins&quot;: [
+        &quot;plugins/markdown&quot;
+    ]
+}
+</code></pre>
+<p>A dokumentáció újragenerálása</p>
+<p>npm run doc</p></article>
+    </section>
+
+
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        
+            index.js
+        
+        </h2>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Fő belépési pont. Inicializálja a szolgáltatásokat és a nézeteket.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+            
+                <div class="description usertext"><p>Fő belépési pont. Inicializálja a szolgáltatásokat és a nézeteket.</p></div>
+            
+
+            
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Thu May 21 2026 13:02:43 GMT+0200 (közép-európai nyári idő) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>
